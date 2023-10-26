@@ -3,13 +3,25 @@ import React, { useState, useEffect } from "react";
 function Clock() {
   const [time, setTime] = useState(new Date());
 
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     setTime(new Date());
+  //   }, 1000);
+
+  // }, []);
   useEffect(() => {
-    setInterval(() => {
-      setTime(new Date());
-    }, 1000);
-  }, []);
+    const timerID = setInterval(() => {
+      setTime(new Date())
+    },1000);
+    //return a cleanup function
+    return function cleanup(){
+      clearInterval(timerID);
+    }
+  },[])
+  
 
   return <div>{time.toString()}</div>;
+  
 }
 
 export default Clock;
